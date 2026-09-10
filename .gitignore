@@ -1,0 +1,36 @@
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Cachés de Python
+__pycache__/
+*.py[cod]
+
+# Pytest
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos generados
+src/mercados_personalizados.json
+
+main.py
+prueba_tv.py
+test_backtest.py
+test_diagnostico.py
+test_diagnostico2.py
+test_grafico_precio.py
+test_solo_velas.py
+
+
+src/graficos_plotly.py
+src/graficos_tv.py
+src/graficos.py
+src/menu.py
+src/resumen.py

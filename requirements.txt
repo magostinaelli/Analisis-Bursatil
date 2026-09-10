@@ -1,0 +1,6 @@
+lightweight-charts
+pandas
+requests
+streamlit
+yfinance
+lxml
