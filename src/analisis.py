@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def calcular_metricas(df: pd.DataFrame) -> dict:
 
@@ -48,3 +49,28 @@ def calcular_rendimiento_normalizado(datos_acciones: dict, tickers: list, period
     )
 
     return resultado
+
+
+def calcular_metricas_riesgo(df: pd.DataFrame, tasa_libre_riesgo_anual: float = 0.0) -> dict:
+
+    precios = df["Close"].to_numpy()
+    retornos = df["Close"].pct_change().dropna().to_numpy()
+
+    # Volatilidad anualizada
+    volatilidad_anualizada = retornos.std() * np.sqrt(252)
+
+    # Sharpe ratio
+    tasa_libre_riesgo_diaria = tasa_libre_riesgo_anual / 252
+    exceso_retorno = retornos - tasa_libre_riesgo_diaria
+    sharpe_anual = (exceso_retorno.mean() / exceso_retorno.std()) * np.sqrt(252)
+
+    # Máximo drawdown
+    maximo_acumulado = np.maximum.accumulate(precios)
+    drawdown = (precios - maximo_acumulado) / maximo_acumulado
+    max_drawdown = drawdown.min()
+
+    return {
+        "Volatilidad Anualizada %": round(volatilidad_anualizada * 100, 2),
+        "Sharpe Ratio": round(sharpe_anual, 2),
+        "Máximo Drawdown %": round(max_drawdown * 100, 2),
+    }
